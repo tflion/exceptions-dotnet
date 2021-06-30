@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AluraExceptions
+namespace AulaExceptions
 {
     public class ContaCorrente
     {
@@ -52,20 +52,21 @@ namespace AluraExceptions
             Agencia = agencia;  
             Numero = numero;
 
-            TaxaOperacao = 30 / TotalDeContasCriadas;
+            
 
             TotalDeContasCriadas++;
+            TaxaOperacao = 30 / TotalDeContasCriadas;
         }
 
-        public bool Sacar(double valor)
+        public void Sacar(double valor)
         {
             if (_saldo < valor)
             {
-                return false;
+                throw new SaldoInsuficienteException(Saldo, valor);
             }
 
             _saldo -= valor;
-            return true;
+            
         }
 
         public void Depositar(double valor)
