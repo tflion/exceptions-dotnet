@@ -8,7 +8,17 @@ namespace AulaExceptions
     {
         public static int Dividir(int numero, int divisor)
         {
-            return numero / divisor;
+            try
+            {
+                return numero / divisor;
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Impossível dividir por zero");
+                throw;
+            }
+                
+       
         }
 
         public void Utilizar()
