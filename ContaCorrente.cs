@@ -14,6 +14,9 @@ namespace AulaExceptions
 
         public Cliente Titular { get; set; }
 
+        public int contadorSaquesNaoPermitidos  { get; private set; }
+        public int contadorTransferenciasNaoPermitidas { get; private set; }
+
 
         public int Numero { get; } // Campos apenas leitura iniciados somente no construtor.
         public int Agencia { get; }
@@ -60,9 +63,15 @@ namespace AulaExceptions
 
         public void Sacar(double valor)
         {
+            if(valor < 0)
+            {
+                throw new ArgumentException("Valor inválido para o saque.", nameof(valor));
+            }
+
             if (_saldo < valor)
             {
-                throw new SaldoInsuficienteException(Saldo, valor);
+                contadorSaquesNaoPermitidos++;
+                throw new SaldoInsuficienteException(Saldo, valor);          
             }
 
             _saldo -= valor;
@@ -74,16 +83,26 @@ namespace AulaExceptions
             _saldo += valor;
         }
 
-        public bool Transferir(double valor, ContaCorrente contaDestino)
+        public void Transferir(double valor, ContaCorrente contaDestino)
         {
-            if (_saldo < valor)
+            if (valor < 0)
             {
-                return false;
+                throw new ArgumentException("Valor inválido para a transferência saque.", nameof(valor));
             }
 
-            _saldo -= valor;
+            try
+            {
+                Sacar(valor);
+            }
+            catch (SaldoInsuficienteException ex)
+            {
+                contadorTransferenciasNaoPermitidas++;
+                throw new OperacaoFinanceiraException("Operação não realizada.", ex);
+                
+            }
+            
             contaDestino.Depositar(valor);
-            return true;
+            
         }
     }
 }
