@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace AulaExceptions
 {
@@ -6,6 +7,54 @@ namespace AulaExceptions
     {
         static void Main(string[] args)
         {
+            CarregarContas();
+
+
+
+            Console.ReadLine();
+        }
+
+        private static void CarregarContas()
+        {
+
+            using(LeitorDeArquivos leitor = new LeitorDeArquivos("Teste.txt"))
+            {
+                leitor.LerProximaLinha();
+            }
+
+            /*
+            
+            LeitorDeArquivos leitor = null;
+
+            try
+            {
+                leitor = new LeitorDeArquivos("contas.txt");
+
+                leitor.LerProximaLinha();
+                leitor.LerProximaLinha();
+                leitor.LerProximaLinha();  
+                
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("Exceção do tipo: IOException capturada e tratada!");
+            }
+            finally // executa quando acontece a exceção e quando não ocorre
+            {
+                if(leitor != null)
+                {
+                    leitor.Fechar();
+                }
+                
+            }
+            */
+            
+        }
+
+        private static void TestesAnteriores()
+        {
+            /*
+            
             try
             {
                 ContaCorrente conta1 = new ContaCorrente(4564, 789684);
@@ -21,7 +70,7 @@ namespace AulaExceptions
                 Console.WriteLine(e.InnerException.StackTrace);
             }
 
-            /*
+            
             ExceptionsClass exceptions = new ExceptionsClass();
 
              try
@@ -54,10 +103,6 @@ namespace AulaExceptions
 
              Console.ReadLine();
              */
-
-
-
-
         }
     }
 }
