@@ -15,7 +15,7 @@ namespace AulaExceptions
 
             throw new FileNotFoundException();
 
-            Console.WriteLine("Abrindo arquivo: " + arquivo);
+            //Console.WriteLine("Abrindo arquivo: " + arquivo);
         }
 
         public string LerProximaLinha()
@@ -26,11 +26,6 @@ namespace AulaExceptions
             throw new IOException();
 
             //return "Linha do arquivo";
-        }
-
-        public void Fechar()
-        {
-            Console.WriteLine("Fechando arquivo.");
         }
 
         public void Dispose() // responsabilidade de liberar os recursos
